@@ -1,5 +1,10 @@
 from flask import Flask, render_template, redirect, request, session, abort, flash
 import os
+
+from sqlalchemy.orm import sessionmaker
+from tabledef import *
+engine = create_engine('sqlite:///test.db', echo=True)
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -18,7 +23,13 @@ def home():
 @app.route('/login', methods=['GET','POST'])
 def login():
 	if request.method == 'POST':
-		if request.form['inputPassword'] == 'aniket' and request.form['inputEmail'] == 'aniket@devils.com':
+		POST_EMAILID = str(request.form['inputEmail'])
+		POST_PASSWORD = str(request.form['inputPassword'])
+		Session = sessionmaker(bind=engine)
+		s = Session()
+		query = s.query(User).filter(User.username.in_([POST_EMAILID]), User.password.in_([POST_PASSWORD]))
+		result = query.first()
+		if result:
 			session['logged_in'] = True
 			session['inputEmail'] = request.form['inputEmail'].split('@')[0]
 			return redirect('/home')
