@@ -9,13 +9,13 @@ engine = create_engine('sqlite:///test.db', echo=True)
 Session = sessionmaker(bind=engine)
 session = Session()
  
-user = User("admin","password")
+user = User("admin@devils.com","admin")
 session.add(user)
  
-user = User("python","python")
+user = User("python@devils.com","python")
 session.add(user)
  
-user = User("jumpiness","python")
+user = User("devil@devils.com","devil")
 session.add(user)
  
 # commit the record the database
