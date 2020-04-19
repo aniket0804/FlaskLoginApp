@@ -9,4 +9,4 @@ Step 2:
 Run app.py with all required dependencies installed.
 
 Step 3:
-Ensure app running successfully.
+Ensure app running successfully and monitor logs.
